@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void function(vector<int>&nums,int index,vector<int>&temp,set<vector<int>>&st){
+        if(index==nums.size()){
+            st.insert(temp);
+            return;
+        }
+        temp.push_back(nums[index]);
+        function(nums,index+1,temp,st);
+        temp.pop_back();
+        function(nums,index+1,temp,st);
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        vector<vector<int>>ans;
+        vector<int>temp;
+        set<vector<int>>st;
+        function(nums,0,temp,st);
+        for(auto i:st){
+            ans.push_back(i);
+        }
+        return ans;
+    }
+};
